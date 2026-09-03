@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chef Chandra Mohan Sharma | Executive Chef Portfolio</title>
+  <meta name="description" content="Official Portfolio of Executive Chef Chandra Mohan Sharma. 20+ years of 5-star international culinary mastery across Bangkok, Dubai, and India. Specialized in Royal Tandoor, Curries, and Luxury Banqueting.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'gold-primary': '#d4af37',
+            'gold-light': '#f3e5ab',
+            'gold-dark': '#aa7c11',
+            'dark-bg': '#0a0a0c',
+            'card-bg': '#14141a',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-[#0a0a0c] text-[#f8f6f0] antialiased selection:bg-amber-500 selection:text-black">
+
+  <!-- Ambient Saffron Ember & Gold Dust Canvas -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- ==========================================================================
+       NETFLIX / CHEF'S TABLE CINEMATIC INTRO OVERLAY
+       ========================================================================== -->
+  <div id="netflix-intro" class="cursor-pointer" title="Click to enter or sound on">
+    <div class="cinematic-letterbox-top"></div>
+    <div class="cinematic-letterbox-bottom"></div>
+
+    <div class="netflix-logo-container">
+      <div class="netflix-n font-cinzel">CHEF'S TABLE</div>
+      <div class="netflix-series-title font-serif italic">A Masterclass in Fire & Saffron</div>
+      <div class="netflix-chef-name font-cinzel tracking-widest uppercase">Chandra Mohan Sharma</div>
+      <div class="netflix-subtitle">Executive Chef • 20+ Years 5-Star Mastery</div>
+    </div>
+
+    <button id="skip-intro-btn" class="netflix-skip-btn flex items-center gap-2">
+      <span>Enter Showcase</span>
+      <i class="fa-solid fa-chevron-right text-xs"></i>
+    </button>
+  </div>
+
+  <!-- ==========================================================================
+       TOP NAVIGATION BAR
+       ========================================================================== -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass-nav py-4 px-6 md:px-12 transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-full border border-amber-500/40 flex items-center justify-center bg-amber-500/10 group-hover:bg-amber-500/20 transition-all duration-300">
+          <i class="fa-solid fa-utensils text-amber-400"></i>
+        </div>
+        <div>
+          <span class="font-cinzel text-base md:text-lg font-bold tracking-wider text-white block leading-tight group-hover:text-amber-300 transition-colors">
+            CHANDRA M. SHARMA
+          </span>
+          <span class="text-[10px] text-stone-400 tracking-widest uppercase block">
+            Executive Chef • The Quartier Bangkok
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <div class="hidden lg:flex items-center gap-8 text-xs tracking-widest uppercase font-medium text-stone-300">
+        <a href="#about" class="nav-link hover:text-amber-400 transition-colors">Philosophy</a>
+        <a href="#showcase" class="nav-link hover:text-amber-400 transition-colors">Creations</a>
+        <a href="#journey" class="nav-link hover:text-amber-400 transition-colors">Career Journey</a>
+        <a href="#credentials" class="nav-link hover:text-amber-400 transition-colors">Accolades & Edu</a>
+        <a href="#endorsements" class="nav-link hover:text-amber-400 transition-colors">Endorsements</a>
+        <a href="#contact" class="nav-link hover:text-amber-400 transition-colors">Contact</a>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-3">
+        <button onclick="openBookingModal('General Inquiry')" class="hidden sm:inline-flex gold-foil text-xs uppercase tracking-wider py-2.5 px-5 rounded-full items-center gap-2">
+          <i class="fa-solid fa-calendar-check"></i>
+          <span>Consult / Reserve</span>
+        </button>
+        <button onclick="openResumeModal()" class="gold-outline text-xs uppercase tracking-wider py-2.5 px-4 rounded-full flex items-center gap-2">
+          <i class="fa-solid fa-file-lines text-amber-400"></i>
+          <span class="hidden md:inline">Curriculum Vitae</span>
+        </button>
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="lg:hidden text-white hover:text-amber-400 text-xl ml-2 p-1">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown -->
+    <div id="mobile-menu" class="hidden lg:hidden pt-4 pb-2 border-t border-white/10 mt-3 flex-col gap-3 text-sm text-stone-300 uppercase tracking-wider">
+      <a href="#about" class="py-2 hover:text-amber-400" onclick="toggleMobileMenu()">Philosophy & Vision</a>
+      <a href="#showcase" class="py-2 hover:text-amber-400" onclick="toggleMobileMenu()">Culinary Creations</a>
+      <a href="#journey" class="py-2 hover:text-amber-400" onclick="toggleMobileMenu()">Career Journey (20+ Years)</a>
+      <a href="#credentials" class="py-2 hover:text-amber-400" onclick="toggleMobileMenu()">Accolades & Qualifications</a>
+      <a href="#endorsements" class="py-2 hover:text-amber-400" onclick="toggleMobileMenu()">Executive Endorsements</a>
+      <a href="#contact" class="py-2 hover:text-amber-400" onclick="toggleMobileMenu()">Direct Connect</a>
+      <button onclick="openBookingModal(); toggleMobileMenu();" class="gold-foil py-2.5 rounded-xl text-center text-xs font-bold mt-2">
+        Book Private Dining / Consultation
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==========================================================================
+       HERO SECTION (CHEF'S SPOTLIGHT)
+       ========================================================================== -->
+  <section id="hero" class="relative min-h-screen pt-32 pb-20 px-6 md:px-12 flex items-center justify-center overflow-hidden">
+    <div class="hero-glow"></div>
+
+    <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+      
+      <!-- Left Column: Master Title & Story Intro -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold tracking-widest uppercase">
+          <i class="fa-solid fa-star text-amber-400 text-[10px]"></i>
+          <span>Executive Chef • Bangkok & Dubai Luxury Leader</span>
+        </div>
+
+        <h1 class="font-cinzel text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.15]">
+          Mastering the <span class="text-gold-gradient">Alchemy of Fire</span>, Spices & Fine Dining.
+        </h1>
+
+        <p class="font-serif text-xl sm:text-2xl text-stone-300 italic max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          "Giving every culinary creation an exciting, unique spin that honors authentic heritage while commanding international 5-star precision."
+        </p>
+
+        <p class="text-stone-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
+          Over two decades spearheading premier kitchen operations at <strong class="text-amber-200">The Quartier Hotel Bangkok</strong>, <strong class="text-amber-200">Amari Watergate</strong>, <strong class="text-amber-200">NH Collection Dubai Palm</strong>, <strong class="text-amber-200">Lebua Hotels & Resorts</strong>, and <strong class="text-amber-200">Hyatt Regency Delhi</strong>.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+          <a href="#showcase" class="gold-foil px-8 py-3.5 rounded-full text-sm uppercase tracking-wider font-bold inline-flex items-center gap-2">
+            <span>Explore Creations</span>
+            <i class="fa-solid fa-arrow-down text-xs"></i>
+          </a>
+          <a href="https://wa.me/66617376179?text=Hello%20Chef%20Chandra%20Mohan%20Sharma,%20I%20would%20like%20to%20connect%20with%20you%20regarding..." target="_blank" class="gold-outline px-6 py-3.5 rounded-full text-sm uppercase tracking-wider font-semibold inline-flex items-center gap-2">
+            <i class="fa-brands fa-whatsapp text-green-400 text-base"></i>
+            <span>WhatsApp Connect</span>
+          </a>
+          <button onclick="openBookingModal('Executive Consultation')" class="px-6 py-3.5 rounded-full text-sm uppercase tracking-wider font-semibold text-stone-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
+            <span>Book Consultation</span>
+          </button>
+        </div>
+
+        <!-- Metric Badges -->
+        <div class="grid grid-cols-3 gap-4 pt-6 max-w-lg mx-auto lg:mx-0 border-t border-white/10">
+          <div>
+            <span class="font-cinzel text-2xl sm:text-3xl font-bold text-amber-400 block">20+</span>
+            <span class="text-xs text-stone-400 uppercase tracking-wider">Years Mastery</span>
+          </div>
+          <div>
+            <span class="font-cinzel text-2xl sm:text-3xl font-bold text-amber-400 block">5-Star</span>
+            <span class="text-xs text-stone-400 uppercase tracking-wider">Luxury Hotels</span>
+          </div>
+          <div>
+            <span class="font-cinzel text-2xl sm:text-3xl font-bold text-amber-400 block">100K+</span>
+            <span class="text-xs text-stone-400 uppercase tracking-wider">Guests Delighted</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Chef Chandra Portrait Frame -->
+      <div class="lg:col-span-5 relative flex justify-center">
+        <div class="relative w-full max-w-md">
+          <div class="chef-portrait-frame">
+            <img src="assets/images/chef-chandra.png" alt="Chef Chandra Mohan Sharma in Chef Uniform Plating Fine Dining" class="chef-portrait-img aspect-[4/5]" onerror="this.src='https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80'">
+          </div>
+
+          <!-- Floating Badges -->
+          <div class="floating-stat-badge badge-1">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400">
+                <i class="fa-solid fa-crown text-sm"></i>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-wider text-stone-400">Current Leadership</p>
+                <p class="text-xs font-bold text-white">The Quartier Hotel Bangkok</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="floating-stat-badge badge-2">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-orange-500/20 flex items-center justify-center text-orange-400">
+                <i class="fa-solid fa-award text-sm"></i>
+              </div>
+              <div>
+                <p class="text-[11px] uppercase tracking-wider text-stone-400">Hyatt Regency Delhi</p>
+                <p class="text-xs font-bold text-white">Hystar Diamond & Gold</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       PHILOSOPHY & 4 CULINARY PILLARS
+       ========================================================================== -->
+  <section id="about" class="py-24 px-6 md:px-12 bg-[#0e0e12] relative border-y border-white/5">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold inline-block">The Culinary Creed</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold">
+          Tradition Elevated by <span class="text-gold-gradient">Modern Mastery</span>
+        </h2>
+        <p class="text-stone-400 text-sm sm:text-base leading-relaxed">
+          From mastery of ancient tandoor clay ovens to orchestrating multi-million baht hotel banquet operations, Chef Chandra brings disciplined leadership, deep Ayurvedic holistic wellness, and uncompromising culinary art.
+        </p>
+      </div>
+
+      <!-- 4 Pillars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Pillar 1 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <i class="fa-solid fa-fire-burner"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-white mb-3">Royal Tandoor & Spices</h3>
+          <p class="text-stone-400 text-sm leading-relaxed">
+            Deep foundational mastery of clay-oven heat dynamics, smoking techniques, and authentic stone-ground spice alchemy across Awadhi, Mughlai, and Southern traditions.
+          </p>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <i class="fa-solid fa-spa"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-white mb-3">Ayurveda & Naturopathy</h3>
+          <p class="text-stone-400 text-sm leading-relaxed">
+            Backed by a Diploma in Yoga & Naturopathy, dishes are balanced for digestive harmony, vitality, and nutrient preservation without sacrificing royal decadence.
+          </p>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <i class="fa-solid fa-shield-halved"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-white mb-3">5-Star Food Governance</h3>
+          <p class="text-stone-400 text-sm leading-relaxed">
+            Non-negotiable HACCP hygiene protocols, rigorous supplier sourcing, menu engineering, and strict food cost optimization across multi-outlet operations.
+          </p>
+        </div>
+
+        <!-- Pillar 4 -->
+        <div class="pillar-card">
+          <div class="pillar-icon-box">
+            <i class="fa-solid fa-people-group"></i>
+          </div>
+          <h3 class="font-serif text-2xl font-bold text-white mb-3">Brigade Mentorship</h3>
+          <p class="text-stone-400 text-sm leading-relaxed">
+            Leading by example with high stamina and unwavering will power. Inspiring and training multicultural kitchen brigades to perform at their absolute peak.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CULINARY SHOWCASE & INTERACTIVE MENU
+       ========================================================================== -->
+  <section id="showcase" class="py-24 px-6 md:px-12 relative">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold inline-block mb-2">Gastronomic Portfolio</span>
+          <h2 class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+            Signature <span class="text-gold-gradient">Creations</span>
+          </h2>
+          <p class="text-stone-400 text-sm sm:text-base mt-2 max-w-xl">
+            Click any dish to explore its heritage, spice complexity, preparation method, and flavor pairings.
+          </p>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap gap-2">
+          <button class="filter-btn active" data-filter="all">All Specialties</button>
+          <button class="filter-btn" data-filter="tandoor">Royal Tandoor</button>
+          <button class="filter-btn" data-filter="curries">Artisanal Curries</button>
+          <button class="filter-btn" data-filter="south-indian">South Indian</button>
+          <button class="filter-btn" data-filter="banqueting">Banquets & Plating</button>
+        </div>
+      </div>
+
+      <!-- Dish Gallery Grid (Rendered Dynamically via JS) -->
+      <div id="dish-gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Injected by app.js -->
+      </div>
+
+      <!-- Upcoming food notice -->
+      <div class="mt-12 p-6 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-center">
+        <p class="text-amber-300 text-sm font-medium">
+          <i class="fa-solid fa-camera mr-2"></i> Custom fine-dining menus and personalized luxury banqueting tailored for high-profile private events and hotels.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       20+ YEARS CAREER JOURNEY (LUXURY HOTEL TIMELINE)
+       ========================================================================== -->
+  <section id="journey" class="py-24 px-6 md:px-12 bg-[#0c0c10] border-t border-white/5 relative">
+    <div class="max-w-7xl mx-auto">
+
+      <div class="text-center max-w-3xl mx-auto mb-20 space-y-3">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Distinguished Trajectory</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold">
+          20+ Years Across <span class="text-gold-gradient">World-Class Properties</span>
+        </h2>
+        <p class="text-stone-400 text-sm sm:text-base">
+          A track record of executive leadership, menu innovation, and culinary acclaim across Thailand, the UAE, India, and Central Asia.
+        </p>
+      </div>
+
+      <!-- Timeline Track -->
+      <div class="timeline-track max-w-4xl mx-auto pl-12 md:pl-0">
+        
+        <!-- Node 1: The Quartier Hotel Bangkok -->
+        <div class="timeline-node grid md:grid-cols-2 gap-8 items-center">
+          <div class="timeline-dot"></div>
+          <div class="md:text-right pr-0 md:pr-8">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Oct 2025 – Present</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">The Quartier Hotel Bangkok</h3>
+            <p class="text-sm text-stone-400">Bangkok, Thailand</p>
+          </div>
+          <div class="timeline-content-card pl-0 md:pl-8">
+            <span class="hotel-badge"><i class="fa-solid fa-crown text-amber-400"></i> Executive Chef</span>
+            <ul class="text-stone-300 text-sm space-y-2 mt-2">
+              <li>• Overseeing total kitchen operations, culinary vision, staffing, budgets, and menus across multi-outlet hotel operations.</li>
+              <li>• Driving financial performance, food cost controls, purchasing alignment, and high-standard culinary innovation.</li>
+              <li>• Maintaining strict HACCP sanitation and building high-performance kitchen teams.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Node 2: Amari Watergate Bangkok -->
+        <div class="timeline-node grid md:grid-cols-2 gap-8 items-center">
+          <div class="timeline-dot"></div>
+          <div class="order-1 md:order-2 md:text-left pl-0 md:pl-8">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Apr 2025 – Oct 2025</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">Amari Watergate Bangkok</h3>
+            <p class="text-sm text-stone-400">ONYX Hospitality Group</p>
+          </div>
+          <div class="timeline-content-card order-2 md:order-1 pr-0 md:pr-8">
+            <span class="hotel-badge"><i class="fa-solid fa-utensils text-amber-400"></i> Chef De Cuisine</span>
+            <ul class="text-stone-300 text-sm space-y-2 mt-2">
+              <li>• Spearheaded Indian cuisine & grand banquet culinary programs with authentic heritage flavor profiles.</li>
+              <li>• Implemented daily briefings, staff training routines, and direct food purchasing protocols.</li>
+              <li>• Elevated guest satisfaction through signature presentations and tailored dietary menus.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Node 3: Maiora Restaurant Dubai -->
+        <div class="timeline-node grid md:grid-cols-2 gap-8 items-center">
+          <div class="timeline-dot"></div>
+          <div class="md:text-right pr-0 md:pr-8">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Dec 2024 – Feb 2025</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">Maiora Restaurant (NH Collection)</h3>
+            <p class="text-sm text-stone-400">The Palm, Dubai, UAE</p>
+          </div>
+          <div class="timeline-content-card pl-0 md:pl-8">
+            <span class="hotel-badge"><i class="fa-solid fa-pepper-hot text-amber-400"></i> Indian Chef / Head Chef</span>
+            <ul class="text-stone-300 text-sm space-y-2 mt-2">
+              <li>• Managed specialized North & South Indian sections including high-volume live tandoor and coastal specialties.</li>
+              <li>• Supervised stock purchasing, inventory optimization, food cost minimization, and team productivity.</li>
+              <li>• Ensured non-negotiable safety and hygiene compliance under international resort standards.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Node 4: Lebua Hotels & Resorts Bangkok (10 Years Milestone) -->
+        <div class="timeline-node grid md:grid-cols-2 gap-8 items-center">
+          <div class="timeline-dot"></div>
+          <div class="order-1 md:order-2 md:text-left pl-0 md:pl-8">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Dec 2014 – Feb 2024 (10 Years)</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">Lebua Hotels & Resorts Bangkok</h3>
+            <p class="text-sm text-stone-400">State Tower, Silom Bangrak, Bangkok</p>
+          </div>
+          <div class="timeline-content-card order-2 md:order-1 pr-0 md:pr-8 border-amber-500/30">
+            <span class="hotel-badge"><i class="fa-solid fa-star text-amber-400"></i> Outlet Chef (A Decade of Distinction)</span>
+            <ul class="text-stone-300 text-sm space-y-2 mt-2">
+              <li>• Led a decade of distinguished culinary operations at one of the world's most iconic luxury landmark towers.</li>
+              <li>• Engineered banquet menus for high-profile luxury weddings, state events, and international VIP dignitaries.</li>
+              <li>• Managed portion controls, waste minimization, stock purchasing, and cross-departmental coordination.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Node 5: Hyatt Regency Delhi (9 Years) -->
+        <div class="timeline-node grid md:grid-cols-2 gap-8 items-center">
+          <div class="timeline-dot"></div>
+          <div class="md:text-right pr-0 md:pr-8">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">Oct 2005 – Nov 2014 (9 Years)</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">Hyatt Regency Delhi</h3>
+            <p class="text-sm text-stone-400">New Delhi, India</p>
+          </div>
+          <div class="timeline-content-card pl-0 md:pl-8">
+            <span class="hotel-badge"><i class="fa-solid fa-medal text-amber-400"></i> Chef De Partie to Commis Chef</span>
+            <ul class="text-stone-300 text-sm space-y-2 mt-2">
+              <li>• Progressive rise from Commis 2nd (Curry & Tandoor) to Chef De Partie managing Grand Ballroom Banquets and Coffee Shop operations.</li>
+              <li>• Honored multiple times with Hystar Gold & Diamond awards for exceptional culinary consistency under high pressure.</li>
+              <li>• Mentored junior apprentices and managed large-scale bulk food production.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Node 6: International & Early Career (Kyrgyzstan & India) -->
+        <div class="timeline-node grid md:grid-cols-2 gap-8 items-center">
+          <div class="timeline-dot"></div>
+          <div class="order-1 md:order-2 md:text-left pl-0 md:pl-8">
+            <span class="text-xs font-bold text-amber-400 uppercase tracking-widest">2002 – 2005</span>
+            <h3 class="font-serif text-2xl font-bold text-white mt-1">Global Foundations</h3>
+            <p class="text-sm text-stone-400">Indus Valley (Kyrgyzstan) & Evergreen (Noida)</p>
+          </div>
+          <div class="timeline-content-card order-2 md:order-1 pr-0 md:pr-8">
+            <span class="hotel-badge"><i class="fa-solid fa-globe text-amber-400"></i> Indian Curry Chef / Chef De Partie</span>
+            <p class="text-stone-300 text-sm leading-relaxed mt-2">
+              Introduced authentic North Indian curries to international dining in Bishkek, Kyrgyz Republic (2004–2006) following three foundational years with Evergreen Restaurant, Noida.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       ACCOLADES, CREDENTIALS & ACADEMICS
+       ========================================================================== -->
+  <section id="credentials" class="py-24 px-6 md:px-12 relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Honors & Qualifications</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold">
+          Accolades & <span class="text-gold-gradient">Credentials</span>
+        </h2>
+        <p class="text-stone-400 text-sm sm:text-base">
+          Recognized across world-class hotel groups for culinary excellence and rigorous technical and academic training.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Award 1: Hystar Diamond & Gold -->
+        <div class="award-card">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 mb-6 text-xl">
+            <i class="fa-solid fa-gem"></i>
+          </div>
+          <span class="text-xs font-bold text-amber-400 tracking-widest uppercase">Hyatt Regency Delhi</span>
+          <h3 class="font-serif text-2xl font-bold text-white mt-1 mb-3">Hystar Diamond & Gold</h3>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            Awarded Employee of the Quarter (2006) for benchmark culinary execution and dedication during high-pressure banquet seasons.
+          </p>
+        </div>
+
+        <!-- Award 2: Best Employee of the Month -->
+        <div class="award-card">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 mb-6 text-xl">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <span class="text-xs font-bold text-amber-400 tracking-widest uppercase">Hyatt Regency Delhi</span>
+          <h3 class="font-serif text-2xl font-bold text-white mt-1 mb-3">Employee of the Month</h3>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            Honored as Best Employee of the Month in <strong>January 2010</strong> and <strong>April 2011</strong> for outstanding leadership and guest satisfaction.
+          </p>
+        </div>
+
+        <!-- Credential: ITDC Bakery & Hyatt Apprenticeship -->
+        <div class="award-card">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 mb-6 text-xl">
+            <i class="fa-solid fa-cake-candles"></i>
+          </div>
+          <span class="text-xs font-bold text-amber-400 tracking-widest uppercase">Culinary Certification</span>
+          <h3 class="font-serif text-2xl font-bold text-white mt-1 mb-3">ITDC Bakery & Hyatt Apprenticeship</h3>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            3-year Certification Course in Bakery & Confectionery from I.T.D.C. Delhi + 2-year Culinary Apprenticeship Diploma (1998–2001) from Hyatt Regency Delhi.
+          </p>
+        </div>
+
+        <!-- Education 1: Yoga & Naturopathy -->
+        <div class="glass-card p-6">
+          <div class="flex items-center gap-3 text-amber-400 mb-3">
+            <i class="fa-solid fa-leaf text-xl"></i>
+            <h4 class="font-serif text-xl font-bold text-white">Yoga & Naturopathy</h4>
+          </div>
+          <p class="text-xs text-stone-400 uppercase tracking-wider mb-2">Diploma • L.B. University</p>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            Integrated holistic dietary knowledge and Ayurvedic natural nutrition principles into modern culinary arts.
+          </p>
+        </div>
+
+        <!-- Education 2: Nagpur University Graduation -->
+        <div class="glass-card p-6">
+          <div class="flex items-center gap-3 text-amber-400 mb-3">
+            <i class="fa-solid fa-graduation-cap text-xl"></i>
+            <h4 class="font-serif text-xl font-bold text-white">Higher Education</h4>
+          </div>
+          <p class="text-xs text-stone-400 uppercase tracking-wider mb-2">Graduation • Nagpur University</p>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            Comprehensive academic foundation combined with secondary education from N.O.S (1997) & CBSE (1995).
+          </p>
+        </div>
+
+        <!-- Personal Traits -->
+        <div class="glass-card p-6">
+          <div class="flex items-center gap-3 text-amber-400 mb-3">
+            <i class="fa-solid fa-bolt text-xl"></i>
+            <h4 class="font-serif text-xl font-bold text-white">Core Strengths & Interests</h4>
+          </div>
+          <p class="text-xs text-stone-400 uppercase tracking-wider mb-2">Personal Mastery</p>
+          <p class="text-stone-300 text-sm leading-relaxed">
+            Unshakable will power and stamina in high-stress kitchens. Avid enthusiast of cricket, music, and learning foreign languages.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       INDUSTRY EXECUTIVE REFERENCES & ENDORSEMENTS
+       ========================================================================== -->
+  <section id="endorsements" class="py-24 px-6 md:px-12 bg-[#0d0d11] border-t border-white/5 relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Leadership Testimonials</span>
+        <h2 class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-bold">
+          Executive <span class="text-gold-gradient">References</span>
+        </h2>
+        <p class="text-stone-400 text-sm sm:text-base">
+          Verified professional references from industry leaders and 5-star executive hospitality executives.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Reference 1: Khun Deepak Ohri -->
+        <div class="reference-card">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl font-cinzel font-bold">
+              DO
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-bold text-white">Khun Deepak Ohri</h3>
+              <p class="text-xs text-amber-300 font-medium">Ex. Chief Executive Officer</p>
+              <p class="text-xs text-stone-400">Lebua Hotels & Resorts Bangkok</p>
+            </div>
+          </div>
+          <p class="text-stone-300 text-sm italic mb-6 leading-relaxed">
+            "Chef Chandra brings exceptional dedication and authentic culinary mastery that consistently meets the exacting standards of our luxury guests at Lebua."
+          </p>
+          <div class="pt-4 border-t border-white/10 space-y-2 text-xs text-stone-300">
+            <a href="tel:+66994419999" class="flex items-center gap-2 hover:text-amber-400 transition-colors">
+              <i class="fa-solid fa-phone text-amber-400"></i> +66 99 441 9999
+            </a>
+            <a href="mailto:Deepak@deepakohri.com" class="flex items-center gap-2 hover:text-amber-400 transition-colors">
+              <i class="fa-solid fa-envelope text-amber-400"></i> Deepak@deepakohri.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Reference 2: Chef Vikas Shrivastava -->
+        <div class="reference-card">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl font-cinzel font-bold">
+              VS
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-bold text-white">Chef Vikas Shrivastava</h3>
+              <p class="text-xs text-amber-300 font-medium">Executive Pastry Chef</p>
+              <p class="text-xs text-stone-400">International Hospitality</p>
+            </div>
+          </div>
+          <p class="text-stone-300 text-sm italic mb-6 leading-relaxed">
+            "A rare chef whose technical grounding from ITDC to 5-star banquet leadership ensures perfection across flavors, costings, and kitchen harmony."
+          </p>
+          <div class="pt-4 border-t border-white/10 space-y-2 text-xs text-stone-300">
+            <a href="tel:+919811550564" class="flex items-center gap-2 hover:text-amber-400 transition-colors">
+              <i class="fa-solid fa-phone text-amber-400"></i> +91 98115 50564
+            </a>
+            <a href="mailto:chef_vikas@yahoo.co.uk" class="flex items-center gap-2 hover:text-amber-400 transition-colors">
+              <i class="fa-solid fa-envelope text-amber-400"></i> chef_vikas@yahoo.co.uk
+            </a>
+          </div>
+        </div>
+
+        <!-- Reference 3: Chef Mehbub Alam -->
+        <div class="reference-card">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl font-cinzel font-bold">
+              MA
+            </div>
+            <div>
+              <h3 class="font-serif text-xl font-bold text-white">Chef Mehbub Alam</h3>
+              <p class="text-xs text-amber-300 font-medium">Executive Sous Chef</p>
+              <p class="text-xs text-stone-400">Amari Watergate Bangkok</p>
+            </div>
+          </div>
+          <p class="text-stone-300 text-sm italic mb-6 leading-relaxed">
+            "Outstanding banquet leadership, precise spice formulation, and exemplary daily kitchen management that drives maximum guest satisfaction."
+          </p>
+          <div class="pt-4 border-t border-white/10 space-y-2 text-xs text-stone-300">
+            <a href="tel:+66988034461" class="flex items-center gap-2 hover:text-amber-400 transition-colors">
+              <i class="fa-solid fa-phone text-amber-400"></i> +66 98 803 4461
+            </a>
+            <a href="mailto:mehbub.alam@amari.com" class="flex items-center gap-2 hover:text-amber-400 transition-colors">
+              <i class="fa-solid fa-envelope text-amber-400"></i> mehbub.alam@amari.com
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CONTACT & BOOKING HUB
+       ========================================================================== -->
+  <section id="contact" class="py-24 px-6 md:px-12 relative border-t border-white/5">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- Left Column: Direct Info -->
+        <div class="lg:col-span-5 space-y-8">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold block mb-2">Connect Directly</span>
+            <h2 class="font-cinzel text-3xl sm:text-4xl font-bold text-white">
+              Engage Chef <span class="text-gold-gradient">Chandra Mohan</span>
+            </h2>
+            <p class="text-stone-400 text-sm sm:text-base mt-3 leading-relaxed">
+              Available for Executive Culinary Consulting, Luxury Banquet Directorship, Exclusive Private Dining, and Masterclasses worldwide.
+            </p>
+          </div>
+
+          <div class="space-y-4">
+            <!-- Mobile -->
+            <a href="tel:+66617376179" class="glass-card p-5 flex items-center gap-4 hover:border-amber-400/60 transition-all block">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div>
+                <span class="text-[11px] text-stone-400 uppercase tracking-wider block">Direct Mobile & WhatsApp</span>
+                <span class="text-base font-bold text-white hover:text-amber-300">+66 61 737 6179</span>
+              </div>
+            </a>
+
+            <!-- Email -->
+            <a href="mailto:cmboss@rediffmail.com" class="glass-card p-5 flex items-center gap-4 hover:border-amber-400/60 transition-all block">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <span class="text-[11px] text-stone-400 uppercase tracking-wider block">Official Email</span>
+                <span class="text-base font-bold text-white hover:text-amber-300">cmboss@rediffmail.com</span>
+              </div>
+            </a>
+
+            <!-- Location -->
+            <div class="glass-card p-5 flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-lg">
+                <i class="fa-solid fa-location-dot"></i>
+              </div>
+              <div>
+                <span class="text-[11px] text-stone-400 uppercase tracking-wider block">Residence & Culinary Base</span>
+                <span class="text-sm font-medium text-white">State Tower, Silom Bangrak, Bangkok, Thailand</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick WhatsApp Direct CTA -->
+          <a href="https://wa.me/66617376179?text=Hello%20Chef%20Chandra,%20I%20would%20like%20to%20inquire%20about%20a%20culinary%20event/consultation" target="_blank" class="gold-foil w-full py-4 rounded-2xl flex items-center justify-center gap-3 text-sm font-bold uppercase tracking-wider shadow-lg">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+            <span>Chat on WhatsApp (+66 617376179)</span>
+          </a>
+        </div>
+
+        <!-- Right Column: Interactive Consultation / Inquiry Form -->
+        <div class="lg:col-span-7">
+          <div class="glass-card p-8 sm:p-10">
+            <h3 class="font-serif text-2xl font-bold text-white mb-2">Send an Executive Inquiry</h3>
+            <p class="text-stone-400 text-sm mb-6">Fill out the details below to receive a personalized proposal or menu consultation.</p>
+
+            <form id="chef-contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Your Name *</label>
+                  <input type="text" id="contact-name" required placeholder="e.g. Sir / Madame / Hotel Director" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400 transition-colors">
+                </div>
+                <div>
+                  <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Email Address *</label>
+                  <input type="email" id="contact-email" required placeholder="your.email@domain.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400 transition-colors">
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Inquiry Type / Service</label>
+                <select id="contact-service" class="w-full bg-[#16161e] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400 transition-colors">
+                  <option value="Executive Hotel Chef Consultation">Executive Hotel Chef Consultation / Menu Engineering</option>
+                  <option value="Private Luxury Dining & VIP Catering">Private Luxury Dining & VIP Banquet Catering</option>
+                  <option value="Restaurant Concept & Tandoor Masterclass">Restaurant Concept & Tandoor Masterclass</option>
+                  <option value="Corporate Hospitality Speaking / Demo">Corporate Hospitality Speaking / Live Demo</option>
+                  <option value="Media & Press Inquiry">Media & Press Inquiry</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Message & Event Details *</label>
+                <textarea id="contact-message" rows="4" required placeholder="Provide details regarding date, location, guest count, or culinary scope..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400 transition-colors"></textarea>
+              </div>
+
+              <button type="submit" class="gold-foil w-full py-4 rounded-xl text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2">
+                <i class="fa-solid fa-paper-plane"></i>
+                <span>Submit Inquiry via WhatsApp</span>
+              </button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="py-12 px-6 md:px-12 bg-black border-t border-white/10 text-center text-xs text-stone-500">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <span class="font-cinzel text-sm font-bold text-stone-300">CHANDRA MOHAN SHARMA</span>
+        <span class="text-amber-500">•</span>
+        <span>Executive Chef</span>
+      </div>
+      <p>© 2026 Executive Chef Chandra Mohan Sharma. All Rights Reserved.</p>
+      <div class="flex items-center gap-4 text-stone-400">
+        <a href="#hero" class="hover:text-amber-400 transition-colors">Back to Top <i class="fa-solid fa-arrow-up ml-1"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       MODAL 1: DISH DETAIL MODAL
+       ========================================================================== -->
+  <div id="dish-modal" class="custom-modal-backdrop">
+    <div class="custom-modal-content" id="dish-modal-body">
+      <!-- Injected by app.js -->
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 2: QUICK BOOKING / CONSULTATION MODAL
+       ========================================================================== -->
+  <div id="booking-modal" class="custom-modal-backdrop">
+    <div class="custom-modal-content p-6 sm:p-8">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10">
+        <div>
+          <span class="text-xs uppercase tracking-widest text-amber-400 font-semibold">Reserve Experience</span>
+          <h2 class="font-serif text-2xl font-bold text-white">Private Dining & Event Booking</h2>
+        </div>
+        <button onclick="closeModal('booking-modal')" class="text-stone-400 hover:text-white text-xl">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="quick-booking-form" class="space-y-4 mt-6">
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Your Full Name *</label>
+          <input type="text" id="booking-name" required placeholder="Your Name" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400">
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Preferred Date</label>
+            <input type="date" id="booking-date" class="w-full bg-[#16161e] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Guest Count</label>
+            <input type="number" id="booking-guests" min="2" max="2000" placeholder="e.g. 10 or 250" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Event Format</label>
+          <select id="booking-event-type" class="w-full bg-[#16161e] border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400">
+            <option value="Private Dining">Exclusive Private Dining at Villa / Residence</option>
+            <option value="Luxury Wedding / Grand Banquet">Luxury Wedding / Grand Hotel Banquet Catering</option>
+            <option value="Restaurant Menu & Operational Consulting">Restaurant Menu & Operational Consulting</option>
+            <option value="Executive Masterclass & Live Kitchen">Executive Masterclass & Live Kitchen Demonstration</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-stone-400 mb-2 font-medium">Special Requests & Dietary Requirements</label>
+          <textarea id="booking-notes" rows="3" placeholder="Specify cuisines, dietary needs, venue details, or favorite dishes..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-amber-400"></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <button type="button" onclick="closeModal('booking-modal')" class="px-5 py-3 rounded-full text-xs font-semibold text-stone-400 hover:text-white bg-white/5">
+            Cancel
+          </button>
+          <button type="submit" class="gold-foil px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+            <i class="fa-brands fa-whatsapp text-base"></i>
+            <span>Confirm via WhatsApp</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL 3: DIGITAL RESUME & PRINT VIEWER
+       ========================================================================== -->
+  <div id="resume-modal" class="custom-modal-backdrop">
+    <div class="custom-modal-content p-6 sm:p-10 max-w-4xl">
+      <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
+        <div class="flex items-center gap-3">
+          <i class="fa-solid fa-file-pdf text-red-500 text-2xl"></i>
+          <div>
+            <h2 class="font-cinzel text-xl font-bold text-white">Executive Curriculum Vitae</h2>
+            <p class="text-xs text-stone-400">Chef Chandra Mohan Sharma</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <button onclick="window.print()" class="gold-foil px-4 py-2 rounded-lg text-xs font-bold flex items-center gap-2">
+            <i class="fa-solid fa-print"></i>
+            <span>Print / Save PDF</span>
+          </button>
+          <button onclick="closeModal('resume-modal')" class="text-stone-400 hover:text-white text-xl p-2">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Resume Content Sheet -->
+      <div class="bg-black/40 border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 text-sm text-stone-300">
+        <!-- Header -->
+        <div class="border-b border-white/10 pb-4">
+          <h1 class="font-cinzel text-2xl font-bold text-amber-400">CHANDRA MOHAN SHARMA</h1>
+          <p class="text-xs uppercase tracking-widest text-stone-400 font-semibold mt-1">Executive Chef • Indian & South Asian Culinary Specialist</p>
+          <p class="text-xs text-stone-400 mt-2">
+            Bangkok, Thailand | Tel: +66 617376179 | Email: cmboss@rediffmail.com
+          </p>
+        </div>
+
+        <!-- Career Objective -->
+        <div>
+          <h3 class="font-bold text-white uppercase text-xs tracking-wider text-amber-400 mb-1">Career Objective</h3>
+          <p class="leading-relaxed">
+            To utilize attained skills and strategic culinary management leadership to elevate 5-star hotel food operations. Experienced Indian chef skilled in Indian and South Indian cuisines, adhering to international standards in cooking while giving every meal an exciting and unique spin.
+          </p>
+        </div>
+
+        <!-- Work Experience -->
+        <div>
+          <h3 class="font-bold text-white uppercase text-xs tracking-wider text-amber-400 mb-3">Professional Experience</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between font-semibold text-white">
+                <span>The Quartier Hotel Bangkok — Executive Chef</span>
+                <span class="text-xs text-amber-300">Oct 2025 – Present</span>
+              </div>
+              <p class="text-xs text-stone-400 mt-1">Directing multi-outlet hotel culinary operations, staff scheduling, budget, menu innovation, and supplier alignment.</p>
+            </div>
+            <div>
+              <div class="flex justify-between font-semibold text-white">
+                <span>Amari Watergate Bangkok (ONYX Hospitality) — Chef De Cuisine</span>
+                <span class="text-xs text-amber-300">Apr 2025 – Oct 2025</span>
+              </div>
+              <p class="text-xs text-stone-400 mt-1">Managing Indian and banquet food operations, authentic flavor development, and daily briefings.</p>
+            </div>
+            <div>
+              <div class="flex justify-between font-semibold text-white">
+                <span>Maiora Restaurant (NH Collection Dubai The Palm) — Indian Chef</span>
+                <span class="text-xs text-amber-300">Dec 2024 – Feb 2025</span>
+              </div>
+              <p class="text-xs text-stone-400 mt-1">Tandoor, curries, and Southern Indian specialties in a premier Dubai palm luxury resort.</p>
+            </div>
+            <div>
+              <div class="flex justify-between font-semibold text-white">
+                <span>Lebua Hotels & Resorts Bangkok — Outlet Chef</span>
+                <span class="text-xs text-amber-300">Dec 2014 – Feb 2024 (10 Years)</span>
+              </div>
+              <p class="text-xs text-stone-400 mt-1">A decade of luxury outlet operations at State Tower Bangkok, banquet execution, and staff supervision.</p>
+            </div>
+            <div>
+              <div class="flex justify-between font-semibold text-white">
+                <span>Hyatt Regency Delhi — Chef De Partie / Banquet Commis</span>
+                <span class="text-xs text-amber-300">Oct 2005 – Nov 2014 (9 Years)</span>
+              </div>
+              <p class="text-xs text-stone-400 mt-1">Ballroom banquets, Indian curry and tandoor production, hygiene compliance, mentoring juniors.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accolades & Education -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2 border-t border-white/10">
+          <div>
+            <h3 class="font-bold text-white uppercase text-xs tracking-wider text-amber-400 mb-2">Honors & Awards</h3>
+            <ul class="text-xs space-y-1 text-stone-300">
+              <li>• Hystar Gold & Diamond Employee of the Quarter (2006) - Hyatt Regency Delhi</li>
+              <li>• Best Employee of the Month (Jan 2010) - Hyatt Regency Delhi</li>
+              <li>• Best Employee of the Month (April 2011) - Hyatt Regency Delhi</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-bold text-white uppercase text-xs tracking-wider text-amber-400 mb-2">Education & Technical</h3>
+            <ul class="text-xs space-y-1 text-stone-300">
+              <li>• 3-Year Bakery & Confectionery - I.T.D.C. Delhi</li>
+              <li>• 2-Year Culinary Apprenticeship (1998–2001) - Hyatt Regency</li>
+              <li>• Diploma in Yoga & Naturopathy - L.B. University</li>
+              <li>• Graduation - Nagpur University</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- References -->
+        <div class="pt-2 border-t border-white/10">
+          <h3 class="font-bold text-white uppercase text-xs tracking-wider text-amber-400 mb-2">Key References</h3>
+          <p class="text-xs text-stone-300">
+            <strong>Khun Deepak Ohri</strong> (Ex-CEO, Lebua Hotels & Resorts) | <strong>Chef Vikas Shrivastava</strong> (Executive Pastry Chef) | <strong>Chef Mehbub Alam</strong> (Executive Sous Chef, Amari Watergate Bangkok)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       FLOATING AMBIENT LOUNGE AUDIO CONTROLLER
+       ========================================================================== -->
+  <button id="ambient-audio-toggle" class="audio-control-btn audio-muted" title="Toggle Fine Dining Ambient Soundscape">
+    <div class="flex items-center gap-1">
+      <span class="sound-wave-bar"></span>
+      <span class="sound-wave-bar"></span>
+      <span class="sound-wave-bar"></span>
+    </div>
+    <span id="audio-status-text" class="text-xs font-semibold">Lounge Audio: Off</span>
+  </button>
+
+  <!-- Mobile Menu Script Helper -->
+  <script>
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    function toggleMobileMenu() {
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('hidden');
+        mobileMenu.classList.toggle('flex');
+      }
+    }
+
+    if (mobileMenuBtn) {
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    }
+  </script>
+
+  <!-- Scripts -->
+  <script src="assets/js/particles.js"></script>
+  <script src="assets/js/intro.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
