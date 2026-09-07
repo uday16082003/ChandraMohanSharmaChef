@@ -71,7 +71,7 @@ export default function Home() {
             {/* 5. Signature Culinary Showcase & Menu */}
             <CulinaryShowcase onSelectDish={(dish) => setSelectedDish(dish)} />
 
-            {/* 6. 20+ Years Executive Career Journey Timeline */}
+            {/* 6. 25+ Years Executive Career Journey Timeline */}
             <CareerTimeline />
 
             {/* 7. Accolades, Credentials & Academics */}

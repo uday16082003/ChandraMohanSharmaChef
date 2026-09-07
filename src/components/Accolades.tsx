@@ -68,7 +68,7 @@ export const Accolades: React.FC = () => {
             </div>
             <p className="text-[11px] sm:text-xs text-stone-500 uppercase tracking-wider mb-2 font-bold">Culinary Certification</p>
             <p className="text-stone-600 text-xs sm:text-sm leading-relaxed">
-              <strong>3-Year Bakery &amp; Confectionery Certification</strong> from <em>I.T.D.C. Delhi</em> + <strong>2-Year Culinary Apprenticeship (1998–2001)</strong> from <em>Hyatt Regency Delhi</em>.
+              <strong>2-Year Bakery &amp; Confectionery Certification</strong> from <em>I.T.D.C. Delhi</em> + <strong>2-Year Culinary Apprenticeship (1998–2001)</strong> from <em>Hyatt Regency Delhi</em>.
             </p>
           </div>
 

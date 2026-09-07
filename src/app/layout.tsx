@@ -24,7 +24,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "Chef Chandra Mohan Sharma | Executive Chef Portfolio",
   description:
-    "Official Portfolio of Executive Chef Chandra Mohan Sharma. Over 20 years of international 5-star hotel leadership across Bangkok, Dubai, and New Delhi. Specialized in Royal Tandoor, Artisanal Curries, and Luxury Banqueting.",
+    "Official Portfolio of Executive Chef Chandra Mohan Sharma. Over 25 years of international 5-star hotel leadership across Bangkok, Dubai, and New Delhi. Specialized in Royal Tandoor, Artisanal Curries, and Luxury Banqueting.",
   keywords: [
     "Chef Chandra Mohan Sharma",
     "Executive Chef Bangkok",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Chef Chandra Mohan Sharma" }],
   openGraph: {
     title: "Chef Chandra Mohan Sharma | Executive Chef",
-    description: "20+ Years of 5-Star International Culinary Mastery in Bangkok, Dubai & India.",
+    description: "25+ Years of 5-Star International Culinary Mastery in Bangkok, Dubai & India.",
     type: "website",
     locale: "en_US",
   }

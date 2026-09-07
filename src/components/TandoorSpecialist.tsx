@@ -24,7 +24,7 @@ export const TandoorSpecialist: React.FC = () => {
     },
     {
       title: "Regional Awadhi & Frontier Mastery",
-      desc: "Over 20 years perfecting clay-oven recipes across Hyatt Regency Delhi, Lebua Bangkok, NH Collection Dubai, and Amari Watergate.",
+      desc: "Over 25 years perfecting clay-oven recipes across Hyatt Regency Delhi, Lebua Bangkok, NH Collection Dubai, and Amari Watergate.",
       badge: "Heritage Legacy"
     }
   ];
@@ -49,7 +49,7 @@ export const TandoorSpecialist: React.FC = () => {
           </h2>
           
           <p className="text-stone-300 text-xs sm:text-base leading-relaxed font-sans">
-            Two decades of uncompromised mastery in live charcoal heat dynamics, ancient clay-oven baking, and signature Awadhi &amp; Frontier marinades across premier 5-star hotels.
+            Over 25 years of uncompromised mastery in live charcoal heat dynamics, ancient clay-oven baking, and signature Awadhi &amp; Frontier marinades across premier 5-star hotels.
           </p>
 
           {/* Real Country Flags Bar */}
@@ -140,7 +140,7 @@ export const TandoorSpecialist: React.FC = () => {
 
               <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs text-amber-300 font-bold">
                 <span>HOTEL BANQUET EXCELLENCE</span>
-                <span>20+ YEARS CRAFT</span>
+                <span>25+ YEARS CRAFT</span>
               </div>
             </div>
           </div>

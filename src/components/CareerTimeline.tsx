@@ -23,7 +23,7 @@ export const CareerTimeline: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-20 space-y-2.5 sm:space-y-3">
           <span className="text-xs uppercase tracking-widest text-[#D95D26] font-bold">Distinguished Trajectory</span>
           <h2 className="font-cinzel text-2xl sm:text-4xl lg:text-5xl font-bold text-[#18181B]">
-            20+ Years Across <span className="text-[#D95D26]">World-Class Properties</span>
+            25+ Years Across <span className="text-[#D95D26]">World-Class Properties</span>
           </h2>
           <p className="text-stone-600 text-xs sm:text-base">
             A proven record of executive leadership, culinary innovation, and multi-million revenue kitchen management across Thailand, the UAE, India, and Central Asia.

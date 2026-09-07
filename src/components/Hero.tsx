@@ -65,7 +65,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
 
           {/* Career Summary Line */}
           <p className="text-stone-600 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl mx-auto lg:mx-0 font-normal">
-            Over two decades spearheading premier 5-star kitchen operations at <strong className="text-[#18181B] font-bold">The Quartier Hotel Bangkok</strong>, <strong className="text-[#18181B] font-bold">Amari Watergate (Tatler Best 2025)</strong>, <strong className="text-[#18181B] font-bold">NH Collection Dubai Palm</strong>, <strong className="text-[#18181B] font-bold">Lebua Hotels &amp; Resorts</strong>, and <strong className="text-[#18181B] font-bold">Hyatt Regency Delhi</strong>.
+            Over 25 years spearheading premier 5-star kitchen operations at <strong className="text-[#18181B] font-bold">The Quartier Hotel Bangkok</strong>, <strong className="text-[#18181B] font-bold">Amari Watergate (Tatler Best 2025)</strong>, <strong className="text-[#18181B] font-bold">NH Collection Dubai Palm</strong>, <strong className="text-[#18181B] font-bold">Lebua Hotels &amp; Resorts</strong>, and <strong className="text-[#18181B] font-bold">Hyatt Regency Delhi</strong>.
           </p>
 
           {/* Enhanced Action CTAs: Perfectly Aligned with Authentic WhatsApp Icon */}
@@ -110,7 +110,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenBooking }) => {
             {/* Metric 1 */}
             <div className="bg-white/80 border border-[#E8DFD3] rounded-2xl p-2.5 sm:p-4 text-center sm:text-left shadow-soft-sm hover:border-[#D95D26]/50 transition-colors">
               <span className="font-cinzel text-lg sm:text-3xl font-black text-[#D95D26] block leading-none mb-1">
-                20+
+                25+
               </span>
               <span className="text-[9px] sm:text-[11px] text-stone-600 uppercase tracking-wider font-bold block leading-tight">
                 Years Mastery

@@ -50,7 +50,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenResume }) =
           </div>
           <div className="min-w-0">
             <span className="font-cinzel text-xs sm:text-base font-bold tracking-wider text-[#18181B] block leading-tight group-hover:text-[#D95D26] transition-colors truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
-              CHANDRAMOHAN SHARMA
+              CHANDRA MOHAN SHARMA
             </span>
             <span className="text-[9px] sm:text-[10px] text-stone-500 tracking-widest uppercase block font-semibold truncate max-w-[150px] xs:max-w-[200px] sm:max-w-none">
               Executive Chef • Bangkok • Dubai • India
@@ -188,7 +188,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenResume }) =
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-2.5 hover:text-[#D95D26] border-b border-stone-100 block px-2 rounded-lg active:bg-stone-50"
               >
-                Career Journey (20+ Years)
+                Career Journey (25+ Years)
               </a>
 
               <a

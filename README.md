@@ -1,6 +1,6 @@
 # ChandraMohanSharmaChef
 
-> **Executive Chef Chandramohan Sharma** — Official Digital Portfolio & Culinary Showcase  
+> **Executive Chef Chandra Mohan Sharma** — Official Digital Portfolio & Culinary Showcase  
 > *Executive Chef | Indian & International Cuisine | Luxury Hospitality*  
 > Bangkok • Dubai • India
 
@@ -8,14 +8,14 @@
 
 ## 🌟 Overview
 
-A luxury, interactive culinary portfolio showcasing over 20+ years of executive leadership, fine-dining mastery, and clay-oven heat dynamics by **Chef Chandra Mohan Sharma** (Tatler Best Thailand 2025 Winner, Amari Bangkok / Nila, The Quartier Hotel, NH Collection Dubai Palm, Lebua Hotels & Resorts, and Hyatt Regency Delhi).
+A luxury, interactive culinary portfolio showcasing over 25+ years of executive leadership, fine-dining mastery, and clay-oven heat dynamics by **Chef Chandra Mohan Sharma** (Tatler Best Thailand 2025 Winner, Amari Bangkok / Nila, The Quartier Hotel, NH Collection Dubai Palm, Lebua Hotels & Resorts, and Hyatt Regency Delhi).
 
 ### 🏆 Key Highlights
 - **Cinematic Entrance Portal**: Interactive multi-course tasting showcase with live dish spotlighting.
 - **Celebrity & Cricketer Shoutouts**: Exclusive video endorsement from IPL batter Ashutosh Sharma, alongside photos with Indian and Sri Lankan international cricketers (Mohit Sharma & Dushmantha Chameera).
 - **The Indian Cuisine & Tandoor Specialist**: Live animated sizzling tandoor media, 480°C clay-oven thermodynamics, and authentic regional Awadhi & Frontier heritage.
 - **Gastronomic Portfolio**: 12 signature dishes with interactive spice meters, heritage origin tags, technique breakdowns, and high-definition photography.
-- **20+ Years Career Trajectory**: Detailed executive milestones spanning 5-star properties across Thailand, the UAE, and India.
+- **25+ Years Career Trajectory**: Detailed executive milestones spanning 5-star properties across Thailand, the UAE, and India.
 - **People & Leadership Culture**: Inspiring multicultural kitchen brigades, HACCP compliance, and low staff turnover.
 - **Direct VIP Inquiries & CV**: WhatsApp-integrated private dining consultation booking and printable executive resume.
 
@@ -62,7 +62,7 @@ npm run start
 
 ## 📍 Contact & Representation
 
-- **Executive Chef**: Chandramohan Sharma
+- **Executive Chef**: Chandra Mohan Sharma
 - **Culinary Base**: 191/19 Soi Phuttha Osot, Si Phraya, Bang Rak, Bangkok 10500
 - **Direct Phone / WhatsApp**: +66 61 737 6179
 - **Official Email**: cmboss@rediffmail.com

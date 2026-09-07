@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
           </div>
           <div>
             <span className="font-cinzel text-xs sm:text-sm font-bold text-[#18181B] block sm:inline">
-              CHANDRAMOHAN SHARMA
+              CHANDRA MOHAN SHARMA
             </span>
             <span className="text-[#D95D26] font-bold hidden sm:inline mx-1.5">•</span>
             <span className="text-stone-500 font-medium block sm:inline text-[11px] sm:text-xs">Executive Chef</span>

@@ -34,7 +34,7 @@ export const ContactSection: React.FC = () => {
             <div>
               <span className="text-xs uppercase tracking-widest text-[#D95D26] font-bold block mb-1.5">Connect Directly</span>
               <h2 className="font-cinzel text-2xl sm:text-4xl font-bold text-[#18181B]">
-                Engage Chef <span className="text-[#D95D26]">Chandramohan</span>
+                Engage Chef <span className="text-[#D95D26]">Chandra Mohan</span>
               </h2>
               <p className="text-stone-600 text-xs sm:text-base mt-2.5 leading-relaxed">
                 Available for Executive Hotel Menu Consultation, Private Luxury Dining, Banquet Direction, Pop-Up Masterclasses, and Hospitality Speaking.

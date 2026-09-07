@@ -184,7 +184,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                   Technical &amp; Academic Qualifications
                 </h3>
                 <ul className="text-xs space-y-1.5 text-stone-600">
-                  <li>• 3-Year Bakery &amp; Confectionery — I.T.D.C. Delhi</li>
+                  <li>• 2-Year Bakery &amp; Confectionery — I.T.D.C. Delhi</li>
                   <li>• 2-Year Culinary Apprenticeship (1998–2001) — Hyatt Regency</li>
                   <li>• Diploma in Yoga &amp; Naturopathy — L.B. University</li>
                   <li>• Graduation — Nagpur University</li>

@@ -111,7 +111,7 @@ export const NetflixIntro: React.FC<NetflixIntroProps> = ({ onEnter }) => {
                 <ChefHat className="w-4 h-4" />
               </div>
               <span className="text-xs font-cinzel font-bold text-white tracking-wider uppercase truncate">
-                CHANDRA M. SHARMA
+                CHANDRA MOHAN SHARMA
               </span>
             </div>
 
@@ -146,7 +146,7 @@ export const NetflixIntro: React.FC<NetflixIntroProps> = ({ onEnter }) => {
               {/* Title */}
               <div>
                 <h1 className="font-cinzel text-2xl sm:text-4xl xl:text-6xl font-black text-white tracking-tight leading-tight">
-                  Chandramohan <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF8542] via-[#FFAA6B] to-amber-300">Sharma</span>
+                  Chandra Mohan <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF8542] via-[#FFAA6B] to-amber-300">Sharma</span>
                 </h1>
                 <p className="font-serif italic text-xs sm:text-lg md:text-xl text-amber-200/90 font-medium mt-0.5">
                   Executive Chef | Indian &amp; International Cuisine | Luxury Hospitality

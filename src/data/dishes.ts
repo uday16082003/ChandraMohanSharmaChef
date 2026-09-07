@@ -165,7 +165,7 @@ export const culinaryDishes: Dish[] = [
     spiceCount: 1,
     origin: "Royal Mughlai & ITDC Confectionery",
     technique: "Pastry Craft, Frozen Spheroid Spiral & Plated Art",
-    description: "Highlights Chef Chandra's 3-year certification in Bakery & Confectionery from I.T.D.C. Delhi. Slow-reduced rabri kulfi flavored with green cardamom and saffron, set in a floral spiral mold over an almond sponge base, adorned with fresh strawberries, blueberries, and edible petals.",
+    description: "Highlights Chef Chandra's 2-year certification in Bakery & Confectionery from I.T.D.C. Delhi. Slow-reduced rabri kulfi flavored with green cardamom and saffron, set in a floral spiral mold over an almond sponge base, adorned with fresh strawberries, blueberries, and edible petals.",
     highlights: ["Direct reflection of ITDC Bakery & Confectionery training", "Slow-reduced rabri with organic saffron", "Modern fine-dining dessert plating"]
   },
   {
