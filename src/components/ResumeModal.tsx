@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Download, Printer, FileText, CheckCircle2, Phone, Mail, MapPin, Award } from "lucide-react";
+import { X, Download, Printer, FileText, CheckCircle2, Phone, Mail, MapPin, Award, Loader2 } from "lucide-react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -11,6 +13,9 @@ interface ResumeModalProps {
 }
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const resumeRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -25,13 +30,57 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
     };
   }, [isOpen, onClose]);
 
-  const handleDownloadPDF = () => {
-    const originalTitle = document.title;
-    document.title = "Chef_Chandra_Mohan_Sharma_Executive_Resume";
-    window.print();
-    setTimeout(() => {
-      document.title = originalTitle;
-    }, 1000);
+  const handleDirectDownloadPDF = async () => {
+    if (!resumeRef.current || isGeneratingPdf) return;
+    setIsGeneratingPdf(true);
+
+    try {
+      const element = resumeRef.current;
+      
+      // Render the resume element to high-res canvas (scale: 2 for crisp 300 DPI equivalent)
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        backgroundColor: "#FAF7F2"
+      });
+
+      const imgData = canvas.toDataURL("image/jpeg", 0.98);
+      
+      // Standard A4 dimensions in mm: 210 x 297
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4"
+      });
+
+      const pdfWidth = 210;
+      const pdfHeight = 297;
+      const imgWidth = pdfWidth;
+      const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+      
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight, undefined, "FAST");
+      heightLeft -= pdfHeight;
+
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight, undefined, "FAST");
+        heightLeft -= pdfHeight;
+      }
+
+      // Directly trigger file download in browser
+      pdf.save("Chef_Chandra_Mohan_Sharma_Executive_Resume.pdf");
+    } catch (err) {
+      console.error("Failed to generate direct PDF, using print fallback:", err);
+      window.print();
+    } finally {
+      setIsGeneratingPdf(false);
+    }
   };
 
   const handleDownloadDoc = () => {
@@ -77,7 +126,6 @@ TECHNICAL & ACADEMIC QUALIFICATIONS:
 EXECUTIVE ENDORSEMENTS:
 - Khun Deepak Ohri (Ex-CEO, Lebua Hotels & Resorts: +66 994419999)
 - Chef Vikas Shrivastava (Executive Pastry Chef: +91 9811550564)
-- Chef Mehbub Alam (Executive Sous Chef, Amari Watergate Bangkok: +66 988034461)
 `;
 
     const blob = new Blob([resumeText], { type: "text/plain;charset=utf-8" });
@@ -126,14 +174,24 @@ EXECUTIVE ENDORSEMENTS:
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              {/* Download PDF Button */}
+              {/* Direct PDF File Download */}
               <button
-                onClick={handleDownloadPDF}
-                className="bg-[#D95D26] hover:bg-[#B84714] text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
-                title="Download / Save as PDF or Print"
+                onClick={handleDirectDownloadPDF}
+                disabled={isGeneratingPdf}
+                className="bg-[#D95D26] hover:bg-[#B84714] disabled:opacity-75 text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all cursor-pointer active:scale-95"
+                title="Directly download PDF file to your device"
               >
-                <Download className="w-3.5 h-3.5" />
-                <span>Download PDF</span>
+                {isGeneratingPdf ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Saving PDF...</span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download PDF</span>
+                  </>
+                )}
               </button>
 
               {/* Text File Download */}
@@ -143,14 +201,14 @@ EXECUTIVE ENDORSEMENTS:
                 title="Download plain text / doc format"
               >
                 <FileText className="w-3.5 h-3.5 text-[#D95D26]" />
-                <span>Download .DOC</span>
+                <span>.DOC</span>
               </button>
 
               {/* Print Button */}
               <button
                 onClick={() => window.print()}
                 className="border border-[#E8DFD3] hover:border-stone-400 bg-white text-stone-700 p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
-                title="Print CV"
+                title="Print CV via Printer"
               >
                 <Printer className="w-3.5 h-3.5" />
                 <span className="hidden md:inline">Print</span>
@@ -167,8 +225,12 @@ EXECUTIVE ENDORSEMENTS:
             </div>
           </div>
 
-          {/* Printable Sheet Content */}
-          <div className="bg-[#FAF7F2] border border-[#E8DFD3] rounded-2xl p-4 sm:p-8 space-y-5 sm:space-y-6 text-sm text-stone-700 resume-inner-card">
+          {/* Printable Sheet Content (Captured by html2canvas for Direct PDF) */}
+          <div
+            ref={resumeRef}
+            id="printable-resume-card"
+            className="bg-[#FAF7F2] border border-[#E8DFD3] rounded-2xl p-4 sm:p-8 space-y-5 sm:space-y-6 text-sm text-stone-700 resume-inner-card"
+          >
             
             {/* Header with Chef Portrait Photo */}
             <div className="border-b border-[#E8DFD3] pb-4 sm:pb-5 flex flex-col-reverse sm:flex-row items-center sm:items-start justify-between gap-4 sm:gap-6">
@@ -308,7 +370,7 @@ EXECUTIVE ENDORSEMENTS:
                 Executive Endorsements
               </h3>
               <p className="text-xs text-stone-600 leading-relaxed">
-                <strong>Khun Deepak Ohri</strong> (Ex-CEO, Lebua Hotels &amp; Resorts: +66 994419999) | <strong>Chef Vikas Shrivastava</strong> (Executive Pastry Chef: +91 9811550564) | <strong>Chef Mehbub Alam</strong> (Executive Sous Chef, Amari Watergate Bangkok: +66 988034461)
+                <strong>Khun Deepak Ohri</strong> (Ex-CEO, Lebua Hotels &amp; Resorts: +66 994419999) | <strong>Chef Vikas Shrivastava</strong> (Executive Pastry Chef: +91 9811550564)
               </p>
             </div>
 

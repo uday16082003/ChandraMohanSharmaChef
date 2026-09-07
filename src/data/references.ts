@@ -28,14 +28,5 @@ export const executiveReferences: ExecutiveReference[] = [
     phone: "+91 98115 50564",
     email: "chef_vikas@yahoo.co.uk",
     quote: "A distinguished culinary professional whose technical training from ITDC to 5-star hotel banquet leadership ensures flawless execution across kitchen operations."
-  },
-  {
-    name: "Chef Mehbub Alam",
-    initials: "MA",
-    title: "Executive Sous Chef",
-    organization: "Amari Watergate Bangkok",
-    phone: "+66 98 803 4461",
-    email: "mehbub.alam@amari.com",
-    quote: "Exemplary kitchen management, authentic spice formulation, and inspiring leadership that drives maximum guest satisfaction and team morale."
   }
 ];

@@ -20,7 +20,7 @@ export const Endorsements: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-8 max-w-4xl mx-auto">
           {executiveReferences.map((ref, idx) => (
             <div
               key={idx}
