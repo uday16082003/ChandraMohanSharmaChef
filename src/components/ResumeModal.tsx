@@ -126,6 +126,7 @@ TECHNICAL & ACADEMIC QUALIFICATIONS:
 EXECUTIVE ENDORSEMENTS:
 - Khun Deepak Ohri (Ex-CEO, Lebua Hotels & Resorts: +66 994419999)
 - Chef Vikas Shrivastava (Executive Pastry Chef: +91 9811550564)
+- Romano Kreutz (Director of Culinary, IHG Hotels & Resorts / Ex-Executive Chef Amari Bangkok: +66 (0) 633 258 381, romanokreutz@aol.com)
 `;
 
     const blob = new Blob([resumeText], { type: "text/plain;charset=utf-8" });
@@ -370,7 +371,7 @@ EXECUTIVE ENDORSEMENTS:
                 Executive Endorsements
               </h3>
               <p className="text-xs text-stone-600 leading-relaxed">
-                <strong>Khun Deepak Ohri</strong> (Ex-CEO, Lebua Hotels &amp; Resorts: +66 994419999) | <strong>Chef Vikas Shrivastava</strong> (Executive Pastry Chef: +91 9811550564)
+                <strong>Khun Deepak Ohri</strong> (Ex-CEO, Lebua Hotels &amp; Resorts: +66 994419999) | <strong>Chef Vikas Shrivastava</strong> (Executive Pastry Chef: +91 9811550564) | <strong>Romano Kreutz</strong> (Director of Culinary, IHG Hotels &amp; Resorts / Ex-Executive Chef Amari Bangkok: +66 (0) 633 258 381)
               </p>
             </div>
 
