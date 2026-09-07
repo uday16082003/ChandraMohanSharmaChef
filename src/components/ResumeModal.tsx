@@ -58,20 +58,25 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
       const pdfWidth = 210;
       const pdfHeight = 297;
-      const imgWidth = pdfWidth;
       const imgHeight = (canvas.height * pdfWidth) / canvas.width;
       
-      let heightLeft = imgHeight;
-      let position = 0;
+      // Fit cleanly onto exactly 1 single A4 page
+      if (imgHeight <= pdfHeight * 1.15) {
+        pdf.addImage(imgData, "JPEG", 0, 0, pdfWidth, Math.min(imgHeight, pdfHeight), undefined, "FAST");
+      } else {
+        let heightLeft = imgHeight;
+        let position = 0;
 
-      pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight, undefined, "FAST");
-      heightLeft -= pdfHeight;
-
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight, undefined, "FAST");
+        pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight, undefined, "FAST");
         heightLeft -= pdfHeight;
+
+        // Only add page if substantial overflow (> 25mm), never for tiny trailing padding
+        while (heightLeft > 25) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, "JPEG", 0, position, pdfWidth, imgHeight, undefined, "FAST");
+          heightLeft -= pdfHeight;
+        }
       }
 
       // Directly trigger file download in browser
@@ -181,7 +186,7 @@ EXECUTIVE ENDORSEMENTS:
                 onClick={handleDirectDownloadPDF}
                 disabled={isGeneratingPdf}
                 className="bg-[#D95D26] hover:bg-[#B84714] disabled:opacity-75 text-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all cursor-pointer active:scale-95"
-                title="Directly download PDF file to your device"
+                title="Directly download 1-page PDF file to your device"
               >
                 {isGeneratingPdf ? (
                   <>
@@ -375,7 +380,7 @@ EXECUTIVE ENDORSEMENTS:
           </div>
 
           {/* =========================================================================
-              OFFSCREEN FIXED-WIDTH A4 PRINTABLE TEMPLATE (Guarantees Perfect PDF on Phones & Laptops)
+              OFFSCREEN FIXED-WIDTH A4 PRINTABLE TEMPLATE (Guarantees Exactly 1 Flawless Page)
               ========================================================================= */}
           <div
             ref={pdfTemplateRef}
@@ -384,148 +389,155 @@ EXECUTIVE ENDORSEMENTS:
               left: "-9999px",
               top: 0,
               width: "794px",
-              minHeight: "1123px",
+              height: "1122px",
+              maxHeight: "1122px",
+              overflow: "hidden",
               backgroundColor: "#FAF7F2",
-              padding: "36px 40px",
+              padding: "28px 36px",
               boxSizing: "border-box",
               color: "#292524",
-              fontFamily: "system-ui, -apple-system, sans-serif"
+              fontFamily: "system-ui, -apple-system, sans-serif",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between"
             }}
           >
-            {/* Header */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "1.5px solid #E8DFD3", paddingBottom: "16px", marginBottom: "18px" }}>
-              <div style={{ flex: 1, paddingRight: "20px" }}>
-                <div style={{ display: "inline-block", backgroundColor: "rgba(217, 93, 38, 0.1)", border: "1px solid rgba(217, 93, 38, 0.3)", borderRadius: "9999px", padding: "3px 10px", color: "#D95D26", fontSize: "11px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "6px" }}>
-                  Tatler Best Thailand 2025 Recommended Chef
+            <div>
+              {/* Header */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", borderBottom: "1.5px solid #E8DFD3", paddingBottom: "12px", marginBottom: "14px" }}>
+                <div style={{ flex: 1, paddingRight: "16px" }}>
+                  <div style={{ display: "inline-block", backgroundColor: "rgba(217, 93, 38, 0.1)", border: "1px solid rgba(217, 93, 38, 0.3)", borderRadius: "9999px", padding: "2px 8px", color: "#D95D26", fontSize: "10px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.05em", marginBottom: "4px" }}>
+                    Tatler Best Thailand 2025 Recommended Chef
+                  </div>
+                  <h1 style={{ margin: "2px 0", fontSize: "24px", fontWeight: "800", color: "#18181B", letterSpacing: "-0.02em", fontFamily: "serif" }}>
+                    CHANDRA MOHAN SHARMA
+                  </h1>
+                  <p style={{ margin: "2px 0 8px 0", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.08em", color: "#D95D26", fontWeight: "bold" }}>
+                    Executive Chef • Chef De Cuisine • Indian &amp; South Asian Master
+                  </p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", fontSize: "10.5px", color: "#57534E", fontWeight: "500" }}>
+                    <span>📞 +66 61 737 6179</span>
+                    <span>✉️ cmboss@rediffmail.com</span>
+                    <span>📍 Bangkok 10500, Thailand</span>
+                  </div>
                 </div>
-                <h1 style={{ margin: "4px 0", fontSize: "26px", fontWeight: "800", color: "#18181B", letterSpacing: "-0.02em", fontFamily: "serif" }}>
-                  CHANDRA MOHAN SHARMA
-                </h1>
-                <p style={{ margin: "2px 0 10px 0", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.08em", color: "#D95D26", fontWeight: "bold" }}>
-                  Executive Chef • Chef De Cuisine • Indian &amp; South Asian Master
+
+                {/* Chef Photo Frame */}
+                <div style={{ width: "90px", height: "108px", borderRadius: "10px", overflow: "hidden", border: "2px solid rgba(217, 93, 38, 0.4)", flexShrink: 0, position: "relative", backgroundColor: "#E7E5E4" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/images/chef-chandra.png"
+                    alt="Executive Chef Chandra Mohan Sharma"
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+              </div>
+
+              {/* Career Objective */}
+              <div style={{ marginBottom: "12px" }}>
+                <h3 style={{ margin: "0 0 3px 0", fontSize: "10.5px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  Career Objective &amp; Leadership Vision
+                </h3>
+                <p style={{ margin: 0, fontSize: "11px", lineHeight: "1.45", color: "#44403C" }}>
+                  To utilize attained skills and strategic culinary management leadership to elevate 5-star hotel food operations. Experienced Indian chef skilled in Indian and South Indian cuisines, adhering to international standards in cooking while giving every meal an exciting and unique spin that consistently impresses guests and drives profitability.
                 </p>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", fontSize: "11px", color: "#57534E", fontWeight: "500" }}>
-                  <span>📞 +66 61 737 6179</span>
-                  <span>✉️ cmboss@rediffmail.com</span>
-                  <span>📍 191/19 Soi Phuttha Osot, Si Phraya, Bang Rak, Bangkok 10500</span>
-                </div>
               </div>
 
-              {/* Chef Photo Frame */}
-              <div style={{ width: "95px", height: "115px", borderRadius: "12px", overflow: "hidden", border: "2px solid rgba(217, 93, 38, 0.4)", flexShrink: 0, position: "relative", backgroundColor: "#E7E5E4" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/images/chef-chandra.png"
-                  alt="Executive Chef Chandra Mohan Sharma"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                />
-              </div>
-            </div>
-
-            {/* Career Objective */}
-            <div style={{ marginBottom: "16px" }}>
-              <h3 style={{ margin: "0 0 4px 0", fontSize: "11px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                Career Objective &amp; Leadership Vision
-              </h3>
-              <p style={{ margin: 0, fontSize: "11.5px", lineHeight: "1.5", color: "#44403C" }}>
-                To utilize attained skills and strategic culinary management leadership to elevate 5-star hotel food operations. Experienced Indian chef skilled in Indian and South Indian cuisines, adhering to international standards in cooking while giving every meal an exciting and unique spin that consistently impresses guests and drives profitability.
-              </p>
-            </div>
-
-            {/* Professional Experience */}
-            <div style={{ marginBottom: "16px" }}>
-              <h3 style={{ margin: "0 0 8px 0", fontSize: "11px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                Professional Experience (25+ Years Mastery)
-              </h3>
-              <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                
-                <div style={{ borderLeft: "2.5px solid #D95D26", paddingLeft: "10px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", fontWeight: "bold", color: "#18181B" }}>
-                    <span>The Quartier Hotel Bangkok — Executive Chef</span>
-                    <span style={{ color: "#D95D26", fontSize: "11px" }}>Oct 2025 – Present</span>
-                  </div>
-                  <p style={{ margin: "2px 0 0 0", fontSize: "11px", color: "#57534E", lineHeight: "1.4" }}>
-                    Top culinary leadership directing all hotel kitchen operations, multi-outlet menus, cost controls, staffing schedules, and strategic food vision.
-                  </p>
-                </div>
-
-                <div style={{ borderLeft: "2.5px solid #2A4736", paddingLeft: "10px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", fontWeight: "bold", color: "#18181B" }}>
-                    <span>Amari Watergate Bangkok — Chef De Cuisine (Tatler Best 2025)</span>
-                    <span style={{ color: "#2A4736", fontSize: "11px" }}>Apr 2025 – Oct 2025</span>
-                  </div>
-                  <p style={{ margin: "2px 0 0 0", fontSize: "11px", color: "#57534E", lineHeight: "1.4" }}>
-                    Directed Indian Food and Grand Banquet operations, authentic flavor development, daily briefings, direct food purchasing, and HACCP compliance.
-                  </p>
-                </div>
-
-                <div style={{ borderLeft: "2.5px solid #C99224", paddingLeft: "10px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", fontWeight: "bold", color: "#18181B" }}>
-                    <span>Maiora Restaurant (NH Collection Dubai Palm) — Head Chef</span>
-                    <span style={{ color: "#C99224", fontSize: "11px" }}>Dec 2024 – Feb 2025</span>
-                  </div>
-                  <p style={{ margin: "2px 0 0 0", fontSize: "11px", color: "#57534E", lineHeight: "1.4" }}>
-                    Managed specialized tandoor, delicate curries, and Southern Indian regional specialties in a premier Palm Jumeirah luxury resort.
-                  </p>
-                </div>
-
-                <div style={{ borderLeft: "2.5px solid #78716C", paddingLeft: "10px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", fontWeight: "bold", color: "#18181B" }}>
-                    <span>Lebua Hotels &amp; Resorts Bangkok — Outlet Chef (10 Years)</span>
-                    <span style={{ color: "#78716C", fontSize: "11px" }}>Dec 2014 – Feb 2024</span>
-                  </div>
-                  <p style={{ margin: "2px 0 0 0", fontSize: "11px", color: "#57534E", lineHeight: "1.4" }}>
-                    A decade of luxury outlet operations at State Tower Bangkok, banquet planning, VIP dining, portion control, and waste minimization.
-                  </p>
-                </div>
-
-                <div style={{ borderLeft: "2.5px solid #78716C", paddingLeft: "10px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", fontWeight: "bold", color: "#18181B" }}>
-                    <span>Hyatt Regency Delhi — Chef De Partie / Commis (9 Years)</span>
-                    <span style={{ color: "#78716C", fontSize: "11px" }}>Oct 2005 – Nov 2014</span>
-                  </div>
-                  <p style={{ margin: "2px 0 0 0", fontSize: "11px", color: "#57534E", lineHeight: "1.4" }}>
-                    Ballroom banquets, Indian curry and tandoor bulk production, junior training, hygiene compliance, awarded Hystar Gold &amp; Diamond honors.
-                  </p>
-                </div>
-
-              </div>
-            </div>
-
-            {/* Honors & Qualifications Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px", paddingTop: "12px", borderTop: "1.5px solid #E8DFD3", marginBottom: "14px" }}>
-              <div>
-                <h3 style={{ margin: "0 0 6px 0", fontSize: "11px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                  Honors &amp; Awards
+              {/* Professional Experience */}
+              <div style={{ marginBottom: "12px" }}>
+                <h3 style={{ margin: "0 0 6px 0", fontSize: "10.5px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                  Professional Experience (25+ Years Mastery)
                 </h3>
-                <ul style={{ margin: 0, padding: 0, listStyle: "none", fontSize: "11px", color: "#57534E", display: "flex", flexDirection: "column", gap: "4px" }}>
-                  <li>✓ Tatler BEST Thailand 2025 Recommended</li>
-                  <li>✓ Hystar Gold &amp; Diamond Employee of Quarter (2006)</li>
-                  <li>✓ Best Employee of the Month (Jan 2010) - Hyatt</li>
-                  <li>✓ Best Employee of the Month (Apr 2011) - Hyatt</li>
-                </ul>
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  
+                  <div style={{ borderLeft: "2.5px solid #D95D26", paddingLeft: "8px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px", fontWeight: "bold", color: "#18181B" }}>
+                      <span>The Quartier Hotel Bangkok — Executive Chef</span>
+                      <span style={{ color: "#D95D26", fontSize: "10.5px" }}>Oct 2025 – Present</span>
+                    </div>
+                    <p style={{ margin: "1px 0 0 0", fontSize: "10.5px", color: "#57534E", lineHeight: "1.35" }}>
+                      Top culinary leadership directing all hotel kitchen operations, multi-outlet menus, cost controls, staffing schedules, and strategic food vision.
+                    </p>
+                  </div>
+
+                  <div style={{ borderLeft: "2.5px solid #2A4736", paddingLeft: "8px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px", fontWeight: "bold", color: "#18181B" }}>
+                      <span>Amari Watergate Bangkok — Chef De Cuisine (Tatler Best 2025)</span>
+                      <span style={{ color: "#2A4736", fontSize: "10.5px" }}>Apr 2025 – Oct 2025</span>
+                    </div>
+                    <p style={{ margin: "1px 0 0 0", fontSize: "10.5px", color: "#57534E", lineHeight: "1.35" }}>
+                      Directed Indian Food and Grand Banquet operations, authentic flavor development, daily briefings, direct food purchasing, and HACCP compliance.
+                    </p>
+                  </div>
+
+                  <div style={{ borderLeft: "2.5px solid #C99224", paddingLeft: "8px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px", fontWeight: "bold", color: "#18181B" }}>
+                      <span>Maiora Restaurant (NH Collection Dubai Palm) — Head Chef</span>
+                      <span style={{ color: "#C99224", fontSize: "10.5px" }}>Dec 2024 – Feb 2025</span>
+                    </div>
+                    <p style={{ margin: "1px 0 0 0", fontSize: "10.5px", color: "#57534E", lineHeight: "1.35" }}>
+                      Managed specialized tandoor, delicate curries, and Southern Indian regional specialties in a premier Palm Jumeirah luxury resort.
+                    </p>
+                  </div>
+
+                  <div style={{ borderLeft: "2.5px solid #78716C", paddingLeft: "8px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px", fontWeight: "bold", color: "#18181B" }}>
+                      <span>Lebua Hotels &amp; Resorts Bangkok — Outlet Chef (10 Years)</span>
+                      <span style={{ color: "#78716C", fontSize: "10.5px" }}>Dec 2014 – Feb 2024</span>
+                    </div>
+                    <p style={{ margin: "1px 0 0 0", fontSize: "10.5px", color: "#57534E", lineHeight: "1.35" }}>
+                      A decade of luxury outlet operations at State Tower Bangkok, banquet planning, VIP dining, portion control, and waste minimization.
+                    </p>
+                  </div>
+
+                  <div style={{ borderLeft: "2.5px solid #78716C", paddingLeft: "8px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", fontSize: "11.5px", fontWeight: "bold", color: "#18181B" }}>
+                      <span>Hyatt Regency Delhi — Chef De Partie / Commis (9 Years)</span>
+                      <span style={{ color: "#78716C", fontSize: "10.5px" }}>Oct 2005 – Nov 2014</span>
+                    </div>
+                    <p style={{ margin: "1px 0 0 0", fontSize: "10.5px", color: "#57534E", lineHeight: "1.35" }}>
+                      Ballroom banquets, Indian curry and tandoor bulk production, junior training, hygiene compliance, awarded Hystar Gold &amp; Diamond honors.
+                    </p>
+                  </div>
+
+                </div>
               </div>
 
-              <div>
-                <h3 style={{ margin: "0 0 6px 0", fontSize: "11px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                  Technical &amp; Academic
-                </h3>
-                <ul style={{ margin: 0, padding: 0, listStyle: "none", fontSize: "11px", color: "#57534E", display: "flex", flexDirection: "column", gap: "4px" }}>
-                  <li>• 2-Year Bakery &amp; Confectionery — I.T.D.C. Delhi</li>
-                  <li>• 2-Year Culinary Apprenticeship (1998–2001) — Hyatt</li>
-                  <li>• Diploma in Yoga &amp; Naturopathy — L.B. University</li>
-                  <li>• Graduation — Nagpur University</li>
-                </ul>
+              {/* Honors & Qualifications Grid */}
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "14px", paddingTop: "10px", borderTop: "1.5px solid #E8DFD3", marginBottom: "10px" }}>
+                <div>
+                  <h3 style={{ margin: "0 0 4px 0", fontSize: "10.5px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    Honors &amp; Awards
+                  </h3>
+                  <ul style={{ margin: 0, padding: 0, listStyle: "none", fontSize: "10.5px", color: "#57534E", display: "flex", flexDirection: "column", gap: "3px" }}>
+                    <li>✓ Tatler BEST Thailand 2025 Recommended</li>
+                    <li>✓ Hystar Gold &amp; Diamond Employee of Quarter (2006)</li>
+                    <li>✓ Best Employee of the Month (Jan 2010) - Hyatt</li>
+                    <li>✓ Best Employee of the Month (Apr 2011) - Hyatt</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 style={{ margin: "0 0 4px 0", fontSize: "10.5px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                    Technical &amp; Academic
+                  </h3>
+                  <ul style={{ margin: 0, padding: 0, listStyle: "none", fontSize: "10.5px", color: "#57534E", display: "flex", flexDirection: "column", gap: "3px" }}>
+                    <li>• 2-Year Bakery &amp; Confectionery — I.T.D.C. Delhi</li>
+                    <li>• 2-Year Culinary Apprenticeship (1998–2001) — Hyatt</li>
+                    <li>• Diploma in Yoga &amp; Naturopathy — L.B. University</li>
+                    <li>• Graduation — Nagpur University</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
             {/* Executive Endorsements */}
-            <div style={{ paddingTop: "10px", borderTop: "1.5px solid #E8DFD3" }}>
-              <h3 style={{ margin: "0 0 4px 0", fontSize: "11px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            <div style={{ paddingTop: "8px", borderTop: "1.5px solid #E8DFD3" }}>
+              <h3 style={{ margin: "0 0 3px 0", fontSize: "10.5px", fontWeight: "bold", color: "#18181B", textTransform: "uppercase", letterSpacing: "0.08em" }}>
                 Executive Endorsements
               </h3>
-              <p style={{ margin: 0, fontSize: "10.5px", color: "#57534E", lineHeight: "1.4" }}>
-                <strong>Khun Deepak Ohri</strong> (Ex-CEO, Lebua Hotels &amp; Resorts: +66 994419999) | <strong>Chef Vikas Shrivastava</strong> (Executive Pastry Chef: +91 9811550564) | <strong>Romano Kreutz</strong> (Director of Culinary, IHG / Ex-Exec Chef Amari Bangkok: +66 (0) 633 258 381)
+              <p style={{ margin: 0, fontSize: "10px", color: "#57534E", lineHeight: "1.35" }}>
+                <strong>Khun Deepak Ohri</strong> (Ex-CEO, Lebua: +66 994419999) | <strong>Chef Vikas Shrivastava</strong> (Exec Pastry Chef: +91 9811550564) | <strong>Romano Kreutz</strong> (Director of Culinary, IHG / Ex-Exec Chef Amari: +66 (0) 633 258 381)
               </p>
             </div>
 
