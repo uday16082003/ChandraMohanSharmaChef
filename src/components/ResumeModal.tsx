@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Printer, FileText, CheckCircle2, Phone, Mail, MapPin } from "lucide-react";
+import { X, Download, Printer, FileText, CheckCircle2, Phone, Mail, MapPin, Award } from "lucide-react";
 
 interface ResumeModalProps {
   isOpen: boolean;
@@ -24,18 +25,84 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
     };
   }, [isOpen, onClose]);
 
+  const handleDownloadPDF = () => {
+    const originalTitle = document.title;
+    document.title = "Chef_Chandra_Mohan_Sharma_Executive_Resume";
+    window.print();
+    setTimeout(() => {
+      document.title = originalTitle;
+    }, 1000);
+  };
+
+  const handleDownloadDoc = () => {
+    const resumeText = `EXECUTIVE RESUME: CHEF CHANDRA MOHAN SHARMA
+=====================================================
+Designation: Executive Chef | Indian & International Cuisine | Luxury Hospitality
+Location: 191/19 Soi Phuttha Osot, Si Phraya, Bang Rak, Bangkok 10500
+Phone / WhatsApp: +66 61 737 6179
+Email: cmboss@rediffmail.com
+Honors: Tatler Best Thailand 2025 Recommended Chef
+
+CAREER OBJECTIVE & LEADERSHIP VISION:
+To utilize attained skills and strategic culinary management leadership to elevate 5-star hotel food operations. Experienced Indian chef skilled in Indian and South Indian cuisines, adhering to international standards in cooking while giving every meal an exciting and unique spin that consistently impresses guests and drives profitability.
+
+PROFESSIONAL EXPERIENCE:
+1. The Quartier Hotel Bangkok — Executive Chef (Oct 2025 – Present)
+   Top culinary leadership directing all hotel kitchen operations, multi-outlet menus, cost controls, staffing schedules, and strategic food vision.
+
+2. Amari Watergate Bangkok — Chef De Cuisine (Tatler Best 2025) (Apr 2025 – Oct 2025)
+   Directed Indian Food and Grand Banquet operations, authentic flavor development, daily briefings, direct food purchasing, and HACCP compliance.
+
+3. Maiora Restaurant (NH Collection Dubai Palm) — Head Chef (Dec 2024 – Feb 2025)
+   Managed specialized tandoor, delicate curries, and Southern Indian regional specialties in a premier Palm Jumeirah luxury resort.
+
+4. Lebua Hotels & Resorts Bangkok — Outlet Chef (Dec 2014 – Feb 2024, 10 Years)
+   A decade of luxury outlet operations at State Tower Bangkok, banquet planning, VIP dining, portion control, and waste minimization.
+
+5. Hyatt Regency Delhi — Chef De Partie / Commis (Oct 2005 – Nov 2014, 9 Years)
+   Ballroom banquets, Indian curry and tandoor bulk production, junior training, hygiene compliance, awarded Hystar Gold & Diamond honors.
+
+HONORS & AWARDS:
+- Tatler BEST Thailand 2025 Recommended
+- Hystar Gold & Diamond Employee of the Quarter (2006) - Hyatt Regency Delhi
+- Best Employee of the Month (Jan 2010) - Hyatt Regency Delhi
+- Best Employee of the Month (Apr 2011) - Hyatt Regency Delhi
+
+TECHNICAL & ACADEMIC QUALIFICATIONS:
+- 2-Year Bakery & Confectionery — I.T.D.C. Delhi
+- 2-Year Culinary Apprenticeship (1998–2001) — Hyatt Regency Delhi
+- Diploma in Yoga & Naturopathy — L.B. University
+- Graduation — Nagpur University
+
+EXECUTIVE ENDORSEMENTS:
+- Khun Deepak Ohri (Ex-CEO, Lebua Hotels & Resorts: +66 994419999)
+- Chef Vikas Shrivastava (Executive Pastry Chef: +91 9811550564)
+- Chef Mehbub Alam (Executive Sous Chef, Amari Watergate Bangkok: +66 988034461)
+`;
+
+    const blob = new Blob([resumeText], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "Chef_Chandra_Mohan_Sharma_Executive_Resume.txt";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+      <div className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto resume-modal-overlay">
         {/* Backdrop */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-stone-900/60 backdrop-blur-sm cursor-pointer"
+          className="fixed inset-0 bg-stone-900/60 backdrop-blur-sm cursor-pointer no-print"
         />
 
         {/* Modal Window */}
@@ -44,10 +111,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.96, y: 15 }}
           transition={{ duration: 0.25, ease: "easeOut" }}
-          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white border border-[#E8DFD3] rounded-3xl p-5 sm:p-10 shadow-2xl z-10 my-auto"
+          className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white border border-[#E8DFD3] rounded-3xl p-5 sm:p-10 shadow-2xl z-10 my-auto resume-modal-sheet"
         >
-          {/* Top Bar */}
-          <div className="flex items-center justify-between pb-3.5 border-b border-[#E8DFD3] mb-5 sm:mb-6 gap-3">
+          {/* Top Bar (Hidden on print) */}
+          <div className="flex items-center justify-between pb-3.5 border-b border-[#E8DFD3] mb-5 sm:mb-6 gap-3 no-print">
             <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
               <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#D95D26]/10 border border-[#D95D26]/20 flex items-center justify-center text-[#D95D26] flex-shrink-0">
                 <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -59,14 +126,37 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
             </div>
 
             <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+              {/* Download PDF Button */}
+              <button
+                onClick={handleDownloadPDF}
+                className="bg-[#D95D26] hover:bg-[#B84714] text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+                title="Download / Save as PDF or Print"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Download PDF</span>
+              </button>
+
+              {/* Text File Download */}
+              <button
+                onClick={handleDownloadDoc}
+                className="border border-[#E8DFD3] hover:border-[#D95D26] bg-[#FAF7F2] hover:bg-white text-stone-800 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider hidden sm:flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+                title="Download plain text / doc format"
+              >
+                <FileText className="w-3.5 h-3.5 text-[#D95D26]" />
+                <span>Download .DOC</span>
+              </button>
+
+              {/* Print Button */}
               <button
                 onClick={() => window.print()}
-                className="bg-[#D95D26] hover:bg-[#B84714] text-white px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+                className="border border-[#E8DFD3] hover:border-stone-400 bg-white text-stone-700 p-2 sm:px-3 sm:py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer"
+                title="Print CV"
               >
                 <Printer className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Print / PDF</span>
-                <span className="sm:hidden">Print</span>
+                <span className="hidden md:inline">Print</span>
               </button>
+
+              {/* Close Button */}
               <button
                 onClick={onClose}
                 className="text-stone-500 hover:text-stone-800 p-1.5 rounded-full bg-stone-100 hover:bg-stone-200 transition-all cursor-pointer"
@@ -78,20 +168,40 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
           </div>
 
           {/* Printable Sheet Content */}
-          <div className="bg-[#FAF7F2] border border-[#E8DFD3] rounded-2xl p-4 sm:p-8 space-y-5 sm:space-y-6 text-sm text-stone-700">
+          <div className="bg-[#FAF7F2] border border-[#E8DFD3] rounded-2xl p-4 sm:p-8 space-y-5 sm:space-y-6 text-sm text-stone-700 resume-inner-card">
             
-            {/* Header */}
-            <div className="border-b border-[#E8DFD3] pb-3.5 sm:pb-4">
-              <h1 className="font-cinzel text-xl sm:text-3xl font-bold text-[#18181B]">
-                CHANDRA MOHAN SHARMA
-              </h1>
-              <p className="text-[11px] sm:text-xs uppercase tracking-widest text-[#D95D26] font-bold mt-1">
-                Executive Chef • Chef De Cuisine • Indian &amp; South Asian Master
-              </p>
-              <div className="flex flex-wrap gap-2.5 sm:gap-4 text-xs text-stone-600 mt-2.5 font-medium">
-                <span className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-[#D95D26]" /> +66 61 737 6179</span>
-                <span className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5 text-[#2A4736]" /> cmboss@rediffmail.com</span>
-                <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-[#C99224]" /> 191/19 Soi Phuttha Osot, Si Phraya, Bang Rak, Bangkok 10500</span>
+            {/* Header with Chef Portrait Photo */}
+            <div className="border-b border-[#E8DFD3] pb-4 sm:pb-5 flex flex-col-reverse sm:flex-row items-center sm:items-start justify-between gap-4 sm:gap-6">
+              <div className="space-y-1.5 sm:space-y-2 text-center sm:text-left flex-1 min-w-0">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D95D26]/10 border border-[#D95D26]/30 text-[#D95D26] text-[10px] sm:text-xs font-bold uppercase tracking-wider">
+                  <Award className="w-3.5 h-3.5 text-[#D95D26]" />
+                  <span>Tatler Best Thailand 2025 Recommended Chef</span>
+                </div>
+
+                <h1 className="font-cinzel text-2xl sm:text-3xl font-bold text-[#18181B] tracking-tight">
+                  CHANDRA MOHAN SHARMA
+                </h1>
+                
+                <p className="text-[11px] sm:text-xs uppercase tracking-widest text-[#D95D26] font-bold">
+                  Executive Chef • Chef De Cuisine • Indian &amp; South Asian Master
+                </p>
+
+                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2.5 sm:gap-4 text-xs text-stone-600 pt-1 font-medium">
+                  <span className="flex items-center gap-1.5"><Phone className="w-3.5 h-3.5 text-[#D95D26]" /> +66 61 737 6179</span>
+                  <span className="flex items-center gap-1.5"><Mail className="w-3.5 h-3.5 text-[#2A4736]" /> cmboss@rediffmail.com</span>
+                  <span className="flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5 text-[#C99224]" /> 191/19 Soi Phuttha Osot, Si Phraya, Bang Rak, Bangkok 10500</span>
+                </div>
+              </div>
+
+              {/* Chef Photo Frame */}
+              <div className="relative w-24 h-28 sm:w-28 sm:h-32 rounded-2xl overflow-hidden border-2 border-[#D95D26]/30 shadow-md bg-stone-100 flex-shrink-0">
+                <Image
+                  src="/images/chef-chandra.png"
+                  alt="Executive Chef Chandra Mohan Sharma Portrait"
+                  fill
+                  className="object-cover"
+                  priority
+                />
               </div>
             </div>
 

@@ -93,13 +93,43 @@
   animation: steamWisp 3s ease-in-out infinite;
 }
 
-/* Print Styles */
+/* Print & Download PDF Styles */
 @media print {
-  body {
-    background: #fff !important;
-    color: #000 !important;
+  body, html {
+    background: #ffffff !important;
+    color: #111827 !important;
+    overflow: visible !important;
+    height: auto !important;
   }
-  nav, footer, button, .audio-control-btn, canvas, .no-print {
+
+  /* Hide non-printable web chrome */
+  header, nav, footer, button, .no-print, canvas, .particle-canvas {
     display: none !important;
+  }
+
+  /* Modal wrapper becomes standard document sheet */
+  .resume-modal-overlay {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
+  .resume-modal-sheet {
+    position: static !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+  }
+
+  .resume-inner-card {
+    border: 1px solid #e5e7eb !important;
+    box-shadow: none !important;
+    background: #ffffff !important;
+    padding: 24px !important;
   }
 }

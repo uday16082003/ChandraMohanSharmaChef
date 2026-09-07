@@ -223,7 +223,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenResume }) =
                 Direct Contact &amp; Inquiry
               </a>
 
-              <div className="pt-3">
+              <div className="pt-3 space-y-2">
                 <button
                   onClick={() => {
                     setMobileMenuOpen(false);
@@ -233,6 +233,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenBooking, onOpenResume }) =
                 >
                   <CalendarCheck className="w-4 h-4" />
                   <span>Book Private Dining / Consultation</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenResume();
+                  }}
+                  className="w-full border border-[#D95D26]/40 hover:border-[#D95D26] bg-white text-[#D95D26] py-3 rounded-xl text-center font-bold flex items-center justify-center gap-2 uppercase tracking-wider text-xs shadow-soft-sm active:scale-98"
+                >
+                  <FileText className="w-4 h-4 text-[#D95D26]" />
+                  <span>View &amp; Download Executive CV</span>
                 </button>
               </div>
             </motion.div>
